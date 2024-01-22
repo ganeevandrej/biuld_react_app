@@ -1,8 +1,39 @@
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
-    mode: "development",
+module.exports = (env = {}) => {
+  const { mode = 'production' } = env;
+
+  const isProd = mode === 'production';
+  const isDev = mode === 'development';
+
+  const getStyleLoaders = () => {
+    return [
+      isProd ? MiniCssExtractPlugin.loader : 'style-loader'
+    ]
+  }
+
+  const getPlugins = () => {
+    const plugins = [
+      new HTMLWebpackPlugin({
+        title: 'Hello Andrey',
+        template: 'public/index.html'
+      }),
+    ]
+    if (isProd) {
+      plugins.push(new MiniCssExtractPlugin({
+        filename: 'main-[hash:8].css'
+      }))
+    }
+
+    return plugins;
+  }
+
+  return {
+    mode: isProd ? 'production' : isDev && 'development',
+    output: {
+      filename: isProd ? 'main-[hash:8].js' : undefined
+    },
     module: {
       rules: [
         {
@@ -39,24 +70,20 @@ module.exports = {
         // loading css
         { 
           test: /\.css$/,
-          use: [ MiniCssExtractPlugin.loader,
+          use: [ ...getStyleLoaders(),
             { loader: 'css-loader', options: { modules: true } },
           ]
         }, 
         // loading SASS
         {
           test: /\.(s[ca]ss$)/,
-          use: [ MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' ]
+          use: [ ...getStyleLoaders(), 'css-loader', 'sass-loader' ]
         }
       ]
     },
-    plugins: [
-      new HTMLWebpackPlugin({
-        title: 'Hello Andrey',
-        template: 'public/index.html'
-      }),
-      new MiniCssExtractPlugin({
-        filename: 'main-[hash:8].css'
-      }),
-    ]
+    plugins: getPlugins(),
+    devServer: {
+      open: true
+    }
+  }
 }
