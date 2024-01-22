@@ -6,12 +6,9 @@ module.exports = {
         {
           test: /\.js$/,
           exclude: /node_modules/,
-          use: [
-            {
-              loader: 'babel-loader'
-            }
-          ]
+          loader: 'babel-loader'
         },
+        // loading images
         {
           test: /\.(png|jpg|jpeg|gif|ico)$/,
           use: [
@@ -24,6 +21,7 @@ module.exports = {
             }
           ]
         },
+        // loading fonts
         {
           test: /\.(ttf|otf|eot|woff|woff2)$/,
           use: [
@@ -36,20 +34,18 @@ module.exports = {
             }
           ]
         },
-        {
+        // loading css
+        { 
           test: /\.css$/,
-          use: [
-            {
-              loader: 'style-loader'
-            },
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-              },
-            },
+          use: [ 'style-loader',
+            { loader: 'css-loader', options: { modules: true } },
           ]
-        },
+        }, 
+        // loading SASS
+        {
+          test: /\.(s[ca]ss$)/,
+          use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+        }
       ]
     }
 }
