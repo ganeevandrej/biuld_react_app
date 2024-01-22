@@ -1,9 +1,10 @@
-"use strict";
-
-var _react = _interopRequireDefault(require("react"));
-var _client = require("react-dom/client");
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-// const App = () => <h1>Hello Andrey</h1>;
-
-var root = (0, _client.createRoot)(document.getElementById('root'));
-root.render( /*#__PURE__*/_react["default"].createElement("h1", null, "Hello Andrey"));
+import "core-js/modules/es.array.flat.js";
+import "core-js/modules/es.array.unscopables.flat.js";
+import React from 'react';
+import { createRoot } from 'react-dom/client';
+const App = () => {
+  console.log([1, 2, [3, 4]].flat());
+  return /*#__PURE__*/React.createElement("h1", null, "Hello Andrey");
+};
+const root = createRoot(document.getElementById('root'));
+root.render( /*#__PURE__*/React.createElement(App, null));
