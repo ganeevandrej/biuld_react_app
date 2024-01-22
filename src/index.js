@@ -1,10 +1,7 @@
-// test code
-class App {
-    run() {
-        const name = "Andrey";
-        console.log(`Hello ${name}`);
-    }
-}
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
-const app = new App();
-app.run();
+const App = () => <h1>Hello Andrey</h1>;
+
+const root = createRoot(document.getElementById('root'));
+root.render(<App />);
