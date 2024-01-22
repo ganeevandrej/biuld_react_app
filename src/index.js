@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import img from "./logo.png";
+import img from "../public/logo.png";
 import styles from "./index.module.css";
 import "./main.scss";
 
