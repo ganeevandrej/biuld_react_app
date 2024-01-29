@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { App } from "./src/App";
+import { App } from './src/App';
 
 const root = createRoot(document.getElementById('root')!);
 
-root.render(<App count={7} />);
+root.render(
+    <StrictMode>
+        <App count={7} />
+    </StrictMode>
+);

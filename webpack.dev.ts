@@ -1,12 +1,14 @@
-const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+import { merge } from 'webpack-merge';
+import ESLintPlugin from 'eslint-webpack-plugin';
+import common from './webpack.common';
+import 'webpack-dev-server';
 
-module.exports = merge(common, {
+export default merge(common, {
     mode: 'development',
     devtool: 'inline-source-map',
     module: {
         rules: [
-            // loading SASS
+            // loading CSS
             {
                 test: /\.css$/,
                 use: ['style-loader',
@@ -20,8 +22,14 @@ module.exports = merge(common, {
             }
         ]
     },
+    plugins: [
+        new ESLintPlugin({
+            extensions: ['js', 'ts', 'tsx', 'jsx']
+        })
+    ],
     devServer: {
         open: true,
-        hot: true
+        hot: true,
+        historyApiFallback: true,
     },
 });

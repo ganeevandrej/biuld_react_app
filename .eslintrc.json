@@ -1,0 +1,41 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
+        "plugin:import/recommended",
+        "plugin:import/typescript",
+        "airbnb",
+        "prettier"
+    ],
+    "overrides": [
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "import/no-extraneous-dependencies": [
+            "error", 
+            { "devDependencies": true }
+        ],
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
+        "import/prefer-default-export": "off",
+        "react/function-component-definition": [
+            "error", 
+            {"namedComponents": "arrow-function"}
+        ],
+        "import/extensions": ["error", "never"],
+        "arrow-body-style": ["error", "always"]
+    }
+}

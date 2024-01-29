@@ -1,14 +1,20 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+import webpack from 'webpack';
+import { resolve as _resolve } from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-module.exports = {
+const config: webpack.Configuration = {
     entry: './index.tsx',
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 use: 'ts-loader',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.jsx?$/,
+                use: 'babel-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.(png|jpg|jpeg|gif|ico)$/,
@@ -17,10 +23,10 @@ module.exports = {
                         loader: 'file-loader',
                         options: {
                             outputPath: 'images',
-                            name: '[name]-[sha1:hash:7].[ext]'
-                        }
-                    }
-                ]
+                            name: '[name]-[sha1:hash:7].[ext]',
+                        },
+                    },
+                ],
             },
             // loading fonts
             {
@@ -30,25 +36,27 @@ module.exports = {
                         loader: 'file-loader',
                         options: {
                             outputPath: 'fonts',
-                            name: '[name].[ext]'
-                        }
-                    }
-                ]
-            }
-        ]
+                            name: '[name].[ext]',
+                        },
+                    },
+                ],
+            },
+        ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Hello Andrey',
-            template: 'public/index.html'
+            template: 'public/index.html',
         }),
     ],
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.jsx', '.js'],
     },
     output: {
         filename: '[name].bundle.js',
-        path: path.resolve(__dirname, "dist"),
+        path: _resolve(__dirname, 'dist'),
         clean: true,
     },
 };
+
+export default config;
